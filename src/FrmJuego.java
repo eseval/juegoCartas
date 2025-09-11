@@ -1,15 +1,18 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class FrmJuego extends JFrame {
+
   private final JPanel pnlJugador1;
   private final JPanel pnlJugador2;
   private final Jugador jugador1;
   private final Jugador jugador2;
+  JTabbedPane tpJugadores;
 
   public FrmJuego() {
+
     setSize(600, 300);
     setTitle("Juego de Cartas");
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,27 +33,32 @@ public class FrmJuego extends JFrame {
     pnlJugador2.setBackground(new Color(0, 255, 255));
     pnlJugador2.setLayout(null);
 
-    JTabbedPane tpJugadores = new JTabbedPane();
-    tpJugadores.addTab("Martin Estrada Contreras", pnlJugador1);
-    tpJugadores.addTab("Raul Vidal", pnlJugador2);
+    tpJugadores = new JTabbedPane();
+    tpJugadores.addTab("Martín Estrada Contreras", pnlJugador1);
+    tpJugadores.addTab("Raúl Vidal", pnlJugador2);
     tpJugadores.setBounds(10, 40, 550, 200);
-
     getContentPane().add(tpJugadores);
 
+    // Agregar los eventos
     btnRepartir.addActionListener(
         new ActionListener() {
+
           @Override
           public void actionPerformed(ActionEvent e) {
             repartir();
           }
         });
+
     btnVerificar.addActionListener(
         new ActionListener() {
+
           @Override
           public void actionPerformed(ActionEvent e) {
             verificar();
           }
         });
+
+    // crear las instancias
     jugador1 = new Jugador();
     jugador2 = new Jugador();
   }
@@ -63,5 +71,14 @@ public class FrmJuego extends JFrame {
     jugador2.mostrar(pnlJugador2);
   }
 
-  private void verificar() {}
+  private void verificar() {
+    switch (tpJugadores.getSelectedIndex()) {
+      case 0:
+        JOptionPane.showMessageDialog(null, jugador1.getGrupos());
+        break;
+      case 1:
+        JOptionPane.showMessageDialog(null, jugador2.getGrupos());
+        break;
+    }
+  }
 }

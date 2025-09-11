@@ -1,11 +1,54 @@
+// import java.util.Random;
+// import javax.swing.*;
+//
+// public class Jugador {
+//  private final int TOTAL_CARTAS = 10;
+//  private final int MARGEN = 10;
+//  private final int SEPARACION = 40;
+//
+//  private final Carta[] cartas = new Carta[TOTAL_CARTAS];
+//  private final Random r = new Random();
+//
+//  public void repartir() {
+//    for (int i = 0; i < TOTAL_CARTAS; i++) {
+//      cartas[i] = new Carta(r);
+//    }
+//  }
+//
+//  public void mostrar(JPanel pnl) {
+//    pnl.removeAll();
+//    int posicion = MARGEN;
+//    JLabel[] lblCartas = new JLabel[TOTAL_CARTAS];
+//    int z = 0;
+//    for (Carta carta : cartas) {
+//      carta.mostrar(pnl, posicion, MARGEN);
+//      posicion += SEPARACION;
+//      z++;
+//    }
+//
+//    z = lblCartas.length - 1;
+//    for (JLabel lbl : lblCartas) {
+//      System.out.println("PNL :"+ pnl + "pnl");
+//      pnl.setComponentZOrder(lbl, z);
+//      z--;
+//    }
+//
+//    pnl.repaint();
+//  }
+//  public String getGrupos(){
+//      String
+//  }
+// }
+
 import java.util.Random;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Jugador {
-  private final int TOTAL_CARTAS = 10;
-  private final int MARGEN = 10;
-  private final int SEPARACION = 40;
 
+  private final int TOTAL_CARTAS = 10;
+  private final int SEPARACION = 40;
+  private final int MARGEN = 10;
   private final Carta[] cartas = new Carta[TOTAL_CARTAS];
   private final Random r = new Random();
 
@@ -21,18 +64,56 @@ public class Jugador {
     JLabel[] lblCartas = new JLabel[TOTAL_CARTAS];
     int z = 0;
     for (Carta carta : cartas) {
-      carta.mostrar(pnl, posicion, MARGEN);
+      lblCartas[z] = carta.mostrar(pnl, posicion, MARGEN);
       posicion += SEPARACION;
       z++;
     }
 
     z = lblCartas.length - 1;
     for (JLabel lbl : lblCartas) {
-      System.out.println("PNL :"+ pnl + "pnl");
       pnl.setComponentZOrder(lbl, z);
       z--;
     }
 
     pnl.repaint();
+  }
+
+  public String getGrupos() {
+    String resultado = "No se encontraron grupos.";
+
+    // Calcular los contadores por nombre de carta
+    int[] contadores = new int[NombreCarta.values().length];
+    for (Carta carta : cartas) {
+      contadores[carta.getNombre().ordinal()]++;
+    }
+    // Verificar si hay grupos
+    resultado = "Se hallaron los siguientes grupos:\n";
+    boolean hayGrupos = false;
+    for (int contador : contadores) {
+      if (contador >= 2) {
+        hayGrupos = true;
+        break;
+      }
+    }
+//    if (hayGrupos) {
+//      resultado = "Se hallaron los siguientes grupos:\n";
+//      int index = 0;
+//      for (int contador : contadores) {
+//        if (contador >= 2) {
+//          resultado += Grupo.values()[contador] + " de " + NombreCarta.values()[index] + "\n";
+//        }
+//        index++;
+//      }
+//    }
+      if(hayGrupos) {
+          resultado="Se hallaron los siguientes grupos:\n";
+          for (int i=0; i<contadores.length; i++) {
+              if(contadores[i]>=2) {
+                  resultado += Grupo.values()[contadores[i]] + " de " + NombreCarta.values()[i] + "\n";
+              }
+          }
+      }
+
+    return resultado;
   }
 }
