@@ -1,52 +1,3 @@
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
-//import java.util.Random;
-//import javax.swing.*;
-//
-//public class Carta {
-//  private final int indice;
-//
-//  public Carta(Random r) {
-//    indice = r.nextInt(52) + 1;
-//  }
-//
-//  public JLabel mostrar(JPanel pnl, int x, int y) {
-//    String archivoImagen = "img/CARTA" + indice + ".JPG";
-//    ImageIcon imgCarta = new ImageIcon(getClass().getResource(archivoImagen));
-//    JLabel lblCarta = new JLabel();
-//    lblCarta.setIcon(imgCarta);
-//    lblCarta.setBounds(x, y, imgCarta.getIconWidth(), imgCarta.getIconHeight());
-//
-//    lblCarta.addMouseListener(
-//        new MouseAdapter() {
-//          @Override
-//          public void mouseClicked(MouseEvent me) {
-//            JOptionPane.showMessageDialog(null, getNombre() + " de " + getPinta());
-//          }
-//        });
-//
-//    pnl.add(lblCarta);
-//    return lblCarta;
-//  }
-//
-//  public Pinta getPinta() {
-//    if (indice <= 13) return Pinta.TREBOL;
-//    else if (indice <= 26) return Pinta.PICA;
-//    else if (indice <= 39) return Pinta.CORAZON;
-//    else return Pinta.DIAMANTE;
-//  }
-//
-//  public NombreCarta getNombre() {
-//    int residuo = indice % 13;
-//    int posicion = residuo == 0 ? 12 : residuo - 1;
-//    //      if (residuo==0){
-//    //          posicion = 12;
-//    //      } else {
-//    //            posicion = residuo -1;
-//    //      }
-//    return NombreCarta.values()[posicion];
-//  }
-//}
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -97,13 +48,6 @@ public class Carta {
     public NombreCarta getNombre() {
         int residuo = indice % 13;
         int posicion = residuo == 0 ? 12 : residuo - 1;
-        /*
-         * if (residuo == 0) {
-         * posicion = 12;
-         * } else {
-         * posicion = residuo - 1;
-         * }
-         */
         return NombreCarta.values()[posicion];
     }
 
